@@ -21,25 +21,29 @@ def get_user_password():
 
 
 def get_online_friends(login, password):
-    session = vk.AuthSession(
-        app_id=APP_ID,
-        user_login=login,
-        user_password=password,
-        scope='friends'
-    )
-    api = vk.API(session)
-    online_friends = api.friends.getOnline()
-    online_friends_info = api.users.get(user_ids=online_friends)
-    return online_friends_info
+    try:
+        session = vk.AuthSession(app_id=APP_ID,
+                                 user_login=login,
+                                 user_password=password,
+                                 scope='friends')
+    except vk.exceptions.VkAuthError:
+        print('Authorization error')
+    else:
+        api = vk.API(session)
+        online_friends = api.friends.getOnline()
+        online_friends_info = api.users.get(user_ids=online_friends)
+        return online_friends_info
 
 
 def output_friends_to_console(friends_online):
-    print('Online friens: {}'.format(len(friends_online)))
+    if friends_online is None:
+        return
+    print('Online friends: {}'.format(len(friends_online)))
     if friends_online:
         for friend in friends_online:
             print('{} {}'.format(friend['first_name'], friend['last_name']))
-    
-        
+
+
 if __name__ == '__main__':
     login = get_user_login()
     password = get_user_password()
