@@ -35,9 +35,9 @@ def get_online_friends(login, password):
 
 
 def output_friends_to_console(friends_online):
-    if friends_online:
-        for friend in friends_online:
-            print(friend)
+    print('Online friens: {}'.format(len(friends_online)))
+    for friend in friends_online:
+        print('{} {}'.format(friend['first_name'], friend['last_name']))
 
 if __name__ == '__main__':
     login = get_user_login()
