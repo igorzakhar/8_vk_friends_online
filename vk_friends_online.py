@@ -7,16 +7,12 @@ APP_ID = 6005016
 
 
 def get_user_login():
-    user_login = None
-    while not user_login:
-        user_login = input('User login: ')
+    user_login = input('User login: ')
     return user_login
 
 
 def get_user_password():
-    user_password = None
-    while not user_password:
-        user_password = getpass.getpass(prompt='Password: ')
+    user_password = getpass.getpass(prompt='Password: ')
     return user_password
 
 
@@ -49,4 +45,4 @@ if __name__ == '__main__':
     password = get_user_password()
     friends_online = get_online_friends(login, password)
     output_friends_to_console(friends_online)
-    
+ 
